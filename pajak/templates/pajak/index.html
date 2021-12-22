@@ -18,8 +18,18 @@
     </form>
 
     {% if kal %}
-        you just entered <i> {{ kal }} </i>. <br> 
-        it has {{ vowels }} vowels. <br> <br>
+        You just entered <i> {{ kal }} </i>. <br> 
+        For your information, it has : <br>
+        <table>
+            <tr>
+               <td>Vowels: </td>    
+               <td>{{ vowels }}</td>
+            </tr>
+            <tr>
+                <td>Consonants: </td>
+                <td>{{ consonants }}</td>
+            </tr>
+        </table>
         <a href="{% url 'utama' %}">Refresh this page.</a>
     {% endif %}
 
