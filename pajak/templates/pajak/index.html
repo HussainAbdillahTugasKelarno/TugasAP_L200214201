@@ -11,5 +11,17 @@
 
     <p>{{ pesan }}</p>
     <hr>
+
+    <form action="" method="post"> {% csrf_token %}
+        write something: <input type="text" name="kalimat">
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if kal %}
+        you just entered <i> {{ kal }} </i>. <br> <br>
+
+        <a href="{% url 'utama' %}">Refresh this page.</a>
+    {% endif %}
+
 </body>
 </html>
