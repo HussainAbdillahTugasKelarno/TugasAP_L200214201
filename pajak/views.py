@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from time import ctime
+from .myutils import number_of_vowels
 
 def coba(request):
     now = ctime()
@@ -13,6 +14,8 @@ def coba(request):
 
     if request.POST:
         st = request.POST.get('kalimat')
-        context.update( { 'kal' : st } )
+        v = number_of_vowels(st)
+        context.update( { 'kal'    : st, 
+                          'vowels' : v  } )
 
     return render(request, 'pajak/index.html', context)
