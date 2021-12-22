@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
 from time import ctime
 
 def coba(request):
     now = ctime()
-    tm = "<html><body><h1>My name is <i>{nama}</i></h1><h2>It is now {waktu}</h2><hr></body></html>"
-    hasil = tm.format(nama = "Hussain", waktu = now)
-    return HttpResponse(hasil)
+    context = {
+        'judul' : 'Tugas AP 2021',
+        'nama'  : 'Hussain Abdillah Tugas Kelarno',
+        'NIM'   : 'L200214201',
+        'waktu' : now,
+        'pesan' : 'Hello my friends, apa kabar ? I hope everything is good.',
+    }
+    return render(request, 'pajak/index.html', context)
