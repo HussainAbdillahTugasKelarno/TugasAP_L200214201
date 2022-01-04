@@ -46,3 +46,8 @@ def ubahwaktu():
     _year   = now[20:24]
     sekarang = day[_day]+' '+ _date +' '+ month[_month]+' '+ _year+' '+ "Pukul "+' '+ _clock
     return sekarang
+
+def thousandsMarker(x):
+    a = (f"{x:,}" .replace(',', '.'))
+    str(a)
+    return a
