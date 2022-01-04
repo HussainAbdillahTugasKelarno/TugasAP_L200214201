@@ -51,3 +51,33 @@ def thousandsMarker(x):
     a = (f"{x:,}" .replace(',', '.'))
     str(a)
     return a
+
+brackets = {       0:0,
+             1000000:5,
+             3000000:10,
+             6000000:15,
+            10000000:20,
+            20000000:25,
+            35000000:30,
+            55000000:35,
+            80000000:40,}
+
+def calculateTax(param):
+    lastI = 0
+    lastPercent = 0
+    totalPajak = 0
+    uang = param
+    for x,i in brackets.items():
+        loc = x - lastI
+        lastI = x
+        if loc > 0 and uang != 0 :
+            if uang > loc:
+                bebanPajak = loc * lastPercent / 100
+                totalPajak += bebanPajak
+                uang = uang - loc
+            else:
+                bebanPajak = uang * lastPercent / 100
+                totalPajak += bebanPajak
+                uang = 0
+        lastPercent = i
+    return int(totalPajak)
