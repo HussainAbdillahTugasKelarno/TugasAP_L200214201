@@ -50,7 +50,7 @@ def ubahwaktu():
 def thousandsMarker(x):
     a = (f"{x:,}" .replace(',', '.'))
     str(a)
-    return a
+    return "Rp " + a
 
 brackets = {       0:0,
              1000000:5,
@@ -63,21 +63,24 @@ brackets = {       0:0,
             80000000:40,}
 
 def calculateTax(param):
-    lastI = 0
-    lastPercent = 0
-    totalPajak = 0
-    uang = param
-    for x,i in brackets.items():
-        loc = x - lastI
-        lastI = x
-        if loc > 0 and uang != 0 :
-            if uang > loc:
-                bebanPajak = loc * lastPercent / 100
-                totalPajak += bebanPajak
-                uang = uang - loc
+    lPoint,lPercent,totalTax, has, totalBracket, resultData = 0, 0, 0, param, len(brackets), []
+    for enum,(key,item) in enumerate(brackets.items(),1):
+        lOc = key - lPoint
+        if lOc > 0 :
+            if has > lOc:
+                added = lOc * lPercent / 100
+                totalTax += added
+                resultData.append((str(thousandsMarker(lPoint))+" ⎯⎯ "+str(thousandsMarker(key)),(str(lPercent)+"%"), thousandsMarker(int(added))))
+                has -= lOc
             else:
-                bebanPajak = uang * lastPercent / 100
-                totalPajak += bebanPajak
-                uang = 0
-        lastPercent = i
-    return int(totalPajak)
+                added = has * lPercent / 100
+                totalTax += added
+                resultData.append((str(thousandsMarker(lPoint))+" ⎯⎯ "+str(thousandsMarker(key)),(str(lPercent)+"%"), thousandsMarker(int(added))))
+                has = 0
+            if enum == totalBracket:
+                added = has * item / 100
+                totalTax += added
+                resultData.append((str(thousandsMarker(key))+" ⎯⎯ ...", (str(item)+"%"), thousandsMarker(int(added))))
+        lPercent = item
+        lPoint = key
+    return resultData

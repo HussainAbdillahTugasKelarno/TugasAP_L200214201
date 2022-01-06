@@ -1,13 +1,16 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from time import ctime
 from .myutils import number_of_vowels
 from .myutils import number_of_consonants
 from .myutils import ubahwaktu
+from .myutils import thousandsMarker
+from .myutils import calculateTax
 
 def coba(request):
     s = ubahwaktu()
     context = {
-        'judul' : 'Tugas AP 2021',
+        'judul' : 'Progressive Tax Calculator',
         'nama'  : 'Hussain Abdillah Tugas Kelarno',
         'NIM'   : 'L200214201',
         'waktu' : s,
@@ -15,11 +18,20 @@ def coba(request):
     }
 
     if request.POST:
-        st = request.POST.get('kalimat')
-        v = number_of_vowels(st)
-        c = number_of_consonants(st)
-        context.update( { 'kal'        : st, 
-                          'vowels'     : v,  
-                          'consonants' : c  } )
+        rt = request.POST.get('tax')
+        try:
+            if int(rt) > 0:
+                resultTaxt = calculateTax(int(rt))
+                total = 0
+                for x in resultTaxt:
+                    total += int(x[2].replace("Rp ", "").replace(".", ""))
+                total = thousandsMarker(total)
+                rtCur = thousandsMarker(int(rt))
+                context.update({"rt" : rt, "rtCur" : rtCur , "resultTax" : resultTaxt, "totalTax" : total, })
+            else:
+                context.update({"exc":"Please enter a positive integer ! "})
+                
+        except:
+            context.update({"exc":"Please enter a positive integer ! "})
 
     return render(request, 'pajak/index.html', context)
