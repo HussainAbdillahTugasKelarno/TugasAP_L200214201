@@ -15,6 +15,11 @@ def coba(request):
         'NIM'   : 'L200214201',
         'waktu' : s,
         'pesan' : 'Hello my friends, apa kabar ? I hope everything is good.',
+        'nama2' : 'Ilham Aufal Hadad',
+        'NIM2'  : 'L200214071',
+        'nama3' : 'Pandu Putra Wijaya',
+        'NIM3'  : 'L200214174',
+        'Dosen' : 'Fajar Suryawan, Ph.D'
     }
 
     if request.POST:
@@ -35,3 +40,6 @@ def coba(request):
             context.update({"exc":"Please enter a positive integer ! "})
 
     return render(request, 'pajak/index.html', context)
+
+def about(request):
+    return render(request, 'pajak/about.html')

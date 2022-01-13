@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from pajak.views import coba
+from pajak.views import about, coba
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", coba, name="utama"),
+    path('about/', about, name="side"),
 ]
